@@ -19,7 +19,7 @@
 
 - Architecture Instruction Set Extensions Programming Reference: CPUID and features for future Intel CPUs.
 - Architectures Optimization Reference Manual: Describes code optimization techniques to enable you to tune your application for highly optimized results when run on current processors.
-- \* Family throughput and latency: the cycles per instruction.
+- \** Family throughput and latency: the cycles per instruction.
 - \** Family Uncore Performance Monitoring Manual: Uncores. **[Important]**
 
 ### How to
@@ -31,3 +31,4 @@
 
 - [Software developers manuals](https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html).
 - [Performance monitoring events](https://perfmon-events.intel.com/)
+- [Intel intrinsics](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html)
