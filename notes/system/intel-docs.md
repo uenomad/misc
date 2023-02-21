@@ -8,7 +8,7 @@
   - Volume 2B: Instructions from M to U.
   - Volume 2C: Instructions V.
   - Volume 2D: Instructions from W to Z.
-- Volume 3: Describes the operating-system including: memory management, protection, task management, interrupt and exception handling, multi-processor support, thermal and power management features, debugging, performance monitoring, system management mode, virtual machine extensions (VMX) instructions, Virtualization Technology (VT), and Software Guard Extensions (SGX).
+- Volume 3: Describes the operating-system including: memory management, protection, task management, interrupt and exception handling, multi-processor support, thermal and power management features, debugging, performance monitoring, system management mode, virtual machine extensions (VMX) instructions, Virtualization Technology (VT), and Software Guard Extensions (SGX). **Important, the Performance Montoring events are present in Volume 3, but not in the single Volume 3B.**
   - Volume 3A: memory management, protection, task management, interrupt and exception handling, and multi-processor support. This volume also contains the table of contents for volumes 3A, 3B, 3C and 3D.
   - Volume 3B: Covers thermal and power management features, debugging, and performance monitoring.
   - Volume 3C: Covers system management mode, VMX and VT.
