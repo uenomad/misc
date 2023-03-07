@@ -4,7 +4,7 @@
 
 ### MSR registers
 
-Registers that can be read and written with the MRS instruction using the following syntax:<br>
+- Old MCR and MRC don't exist in ARM AArch64. The classic<br> `asm volatile("mcr p15, 0, %0, c14, c3, 1" : : "r" (val))` have to be replaced by:<br>
 `MRS <Xt>,<systemreg> #read`<br>
 `MSR <systemreg>, <Xt> #Write`
 
@@ -15,17 +15,15 @@ There is no CPUID in ARM, you have to access to these registers through MRS inst
 | Register      | Description                                                 |
 |---------------|-------------------------------------------------------------|
 | MIDR_EL1      | Model identification.                                       |
-| CTR_EL0       | .                                                           |
+| PMSELR_EL0    | Performance Monitors Event Counter Selection Register.      |
+| PMUSERENR_EL0 | Enables or disables EL0 access to the Performance Monitors. |
+| PMCR_EL0      | Performance Monitors Control Register.                      |
 | CLIDR_EL1     | Cache Level ID Register.                                    |
-| CSSELR_EL1    | .                                                           |
 | CCSIDR_EL1    | Current Cache Size ID Register.                             |
 | CCSIDR2_EL1   | Current Cache Size ID Register 2.                           |
-| ID_DFR0_EL1   | .                                                           |
-| MVFR0_EL1     | .                                                           |
-| MVFR0_EL2     | .                                                           |
-| MVFR0_EL3     | .                                                           |
-| PMCR_EL0      | .                                                           |
-| PMUSERENR_EL0 | Enables or disables EL0 access to the Performance Monitors. |
+| ID_DFR0_EL1   | AArch32 Debug Feature Register 0.                           |                           |
+| MVFR0_EL1     | Some SIMD information.                                      |
+| SMCR_EL1      | Some SVE information.                                       |
 
 System registers exposed by the system:
 - `/sys/devices/system/cpu/cpu0/regs/identification/midr_el1`

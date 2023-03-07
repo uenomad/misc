@@ -36,6 +36,8 @@ Additionally, the visibility of the data collection can be controlled with the  
 
 ### Tool
 
+You can see the events by typing `perf list` and more detailed list by `perf list --details`.
+
 ### Resources
 
 - https://perf.wiki.kernel.org/index.php/Tutorial

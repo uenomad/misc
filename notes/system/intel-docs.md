@@ -32,3 +32,4 @@
 - [Software developers manuals](https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html).
 - [Performance monitoring events](https://perfmon-events.intel.com/)
 - [Intel intrinsics](https://www.intel.com/content/www/us/en/docs/intrinsics-guide/index.html)
+- [Intel ASM guide](https://www.cs.virginia.edu/~evans/cs216/guides/x86.html)
