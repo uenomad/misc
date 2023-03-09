@@ -1,4 +1,4 @@
-Kernel: Linux 5.14.0-1057-oem #64-Ubuntu SMP Mon Jan 23 17:02:19 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
+Kernel: Linux 4.18.0-348.20.1.el8_5.x86_64 #1 SMP Thu Mar 10 20:59:28 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
 Architecture: Zen2
 
 branch-instructions OR branches                    [Hardware event]
