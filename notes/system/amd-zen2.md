@@ -68,19 +68,19 @@ perf stat -M all_l2_cache_misses taskset -c 0 perf bench mem memcpy --size 10GB
 
 In order to avoid multiplexing, we are going to split the events by half and set the bench program to a specific CPU through taskset. Also we are going to perform 2 tests per command to compare their output. Morever we are adding an L2 test to compare. Results:
 
-| Command | Node              | Sum of values   | Bytes transferred        | GB/s |
-|---------|-------------------|-----------------|--------------------------|------|
-| #1      | 7773X kernel 4.18 | 699.232         | 44.750.848 (0 GB)        | 0    |
-| #1      | 7742  kernel 4.18 | 112.599         | 7.206.336 (0 GB)         | 0    |
-| #2      | 7773X kernel 4.18 | 4.590.684.470   | 293.803.806.080 (293 GB) | 26   |
-| #2      | 7742  kernel 4.18 | 16.232.284.663  | 1.051.308.295.552 (1 TB) | 74   |
-| #3      | 7773X kernel 4.18 | 5.119.642.890   | 327.657.144.960 (327 GB) | 29   |
-| #3      | 7742  kernel 4.18 | <not supported> | -                        | -    |
-| #4      | 7773X kernel 4.18 | 5.116.843.009   | 327.477.952.576 (327 GB) | 29   |
-| #4      | 7742  kernel 4.18 | <not supported> | -                        | -    |
-| #5 (L3) | 7773X kernel 4.18 | 2.908.836.466   | 186.165.533.824 (186 GB) | 16   |
-| #5 (L3) | 7742  kernel 4.18 | <not supported> | -                        | -    |
-| #6 (L2) | 7773X kernel 4.18 | 3.066.661.424   | 196.266.331.136 (196 GB) | 17   |
-| #6 (L2) | 7773X kernel 4.18 | 2.288.483.966   | 146.462.973.824 (146 GB) | 10   |
+| Command | Node              |   Sum of values | Bytes transferred |  GB |  GB/s |
+|---------|-------------------|----------------:|------------------:|----:|------:|
+| #1      | 7773X kernel 4.18 |         699.232 |        44.750.848 |   0 |     0 |
+| #1      | 7742_ kernel 4.18 |         112.599 |         7.206.336 |   0 |     0 |
+| #2      | 7773X kernel 4.18 |   4.590.684.470 |   293.803.806.080 | 293 |    26 |
+| #2      | 7742_ kernel 4.18 |  16.232.284.663 | 1.051.308.295.552 | 1TB |    74 |
+| #3      | 7773X kernel 4.18 |   5.119.642.890 |   327.657.144.960 | 327 |    29 |
+| #3      | 7742_ kernel 4.18 | <not supported> |                 - |   - |     - |
+| #4      | 7773X kernel 4.18 |   5.116.843.009 |   327.477.952.576 | 327 |    29 |
+| #4      | 7742_ kernel 4.18 | <not supported> |                 - |   - |     - |
+| #5 (L3) | 7773X kernel 4.18 |   2.908.836.466 |   186.165.533.824 | 186 |    16 |
+| #5 (L3) | 7742_ kernel 4.18 | <not supported> |                 - |   - |     - |
+| #6 (L2) | 7773X kernel 4.18 |   3.066.661.424 |   196.266.331.136 | 196 |    17 |
+| #6 (L2) | 7773X kernel 4.18 |   2.288.483.966 |   146.462.973.824 | 146 |    10 |
 
 It makes sense that the L2 Misses counters are below the CAS count from the channels for test #2, #3 and #4? Just if we consider that other processes are intensely accessing to DRAM or hardware prefetchers are avoiding the L2.
