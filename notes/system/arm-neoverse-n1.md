@@ -49,7 +49,9 @@ The BUS_ACCESS event has multiple definitions:
 1) Counts memory transactions issued by the CPU to the external bus, including snoop requests and snoop responses.
 2) Counts for every beat of data transferred over the data channels between the core and the Snoop Control Unit (SCU).
 3) Counts any memory accesses issued by the load/store memory system (also referred to as the L2 system) from the CPU to the DSU. Since the DSU is always implemented with a the direct connect configuration, the transaction will go to the system interconnect (bus).
-4) Counts each Memory-read operation or Memory-write operation that accesses outside of the boundary of the PE (Processing Element) and its closely-coupled caches. Where this boundary lies with respect to any implemented caches is IMPLEMENTATION DEFINED. Where an implementation has multiple buses at this boundary, this event counts the sum of accesses across all buses. Bus transactions include refills of and write-backs from data, instruction, and unified caches. Whether bus transactions include operations that use the bus but do not explicitly transfer data is IMPLEMENTATION DEFINED. An Unattributable bus transaction occurs when a requestor outside the PE makes a request that results in a bus access, for example, a coherency request.
+4) Counts each Memory-read operation or Memory-write operation that accesses outside of the boundary of the PE (Processing Element) and its closely-coupled caches. Where this boundary lies with respect to any implemented caches is IMPLEMENTATION DEFINED. Where an implementation has multiple buses at this boundary, this event counts the sum of accesses across all buses. Bus transactions include refills of and write-backs from data, instruction, and unified caches. Whether bus transactions include operations that use the bus but do not explicitly transfer data is IMPLEMENTATION DEFINED. An Unattributable bus transaction occurs when a requestor outside the PE makes a request that results in a bus imgaccess, for example, a coherency request.
+
+![img.png](./img/arm-neoverse-n1-l2.png)
 
 A snooper is a coherency controller, monitors (or snoop) the bus transactions, and its goal is to maintain cache coherency in a distributed shared memory (DSM) systems. When specific data is shared by several caches and a processor modifies the value of the shared data, the change must be propagated to all the other caches which have a copy of the data. This change propagation prevents the system from violating cache coherency. The notification of data change can be done by bus snooping. All the snoopers monitor every transaction on a bus. There are two kinds of snooping protocols depending on the way to manage a local copy of a write operation: write-invalidate and write-update. More info on [wikipedia](https://en.wikipedia.org/wiki/Bus_snooping).
 
@@ -67,6 +69,18 @@ The question rises, how much more will BUS_ACCESS count besides memory accesses 
 | MEM_ACCESS    | r13   | Explanations above.                                                      |
 | MEM_ACCESS_RD | r66   | ...                                                                      |
 | MEM_ACCESS_WR | r67   | ...                                                                      |
+
+**Important!** The scope of these events seems to be per core. After the following perf command was launched:
+```
+> perf stat -aA -e r19 perf bench mem memcpy --size 10GB
+CPU0            2,835,659,828      r19                                                         
+CPU1                   43,104      r19                                                         
+CPU2                   13,804      r19                                                         
+CPU3                    2,964      r19                                                         
+CPU4                    6,416      r19                                                         
+CPU5                    6,838      r19
+...
+```
 
 ### Other resources
 
