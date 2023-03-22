@@ -157,6 +157,10 @@ typedef enum {
     Not_implemented
 } mpi_call_e;
 
+void nqj_init();
+
+void nqj_finalize();
+
 void nqj_enter(mpi_call_e call, p2i buf, p2i dest);
 
 void nqj_leave(mpi_call_e call);

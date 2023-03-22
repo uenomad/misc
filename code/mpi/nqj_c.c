@@ -1,4 +1,5 @@
 #include "nqj.h"
+#include "nqj_c.h"
 
 int nqjc_Allgather(M3C void *sb, int sc, MD st, void *rb, int rc, MD rt, MPI_Comm comm)
 {
@@ -235,9 +236,8 @@ int nqjc_File_write_at_all(MF fh, MPI_Offset offset, M3C void *buf, int count, M
 
 int nqjc_Finalize(void)
 {
-    before_finalize();
+    nqj_finalize();
     int res = PMPI_Finalize();
-    after_finalize();
     return res;
 }
 
@@ -275,17 +275,15 @@ int nqjc_Ibsend(M3C void *buf, int count, MD dt, int dest, int tag, MPI_Comm com
 
 int nqjc_Init(int *argc, char ***argv)
 {
-    before_init();
+    nqj_init();
     int res = PMPI_Init(argc, argv);
-    after_init();
     return res;
 }
 
 int nqjc_Init_thread(int *argc, char ***argv, int required, int *provided)
 {
-    before_init();
+    nqj_init();
     int res = PMPI_Init_thread(argc, argv, required, provided);
-    after_init();
     return res;
 }
 
