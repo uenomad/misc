@@ -4,6 +4,8 @@ Neoverse V1 (ARM8.2a), next generation of Neoverse N1, is the first Arm-designed
 
 V1 is a super pipelined super-scalar processor which has an in-order frontend and out-of-order backend. Also has a dedicated L1/L2 cache per core, where the L2 cache is shared between the L1 data cache and the L1 instruction cache. The system could have an optional shared system level cache (SLC) in the interconnect (L3?). It is recommended to check with the platform providers for cache configurations.
 
+This is an expansion of [ARM Neoverse N1](./arm-neoverse-n1.md). Read first that document.
+
 ### Documents
 
 - Arm Neoverse V1 Core Performance Analysis Methodology: Paper introducing performance analysis, including PMU events and metrics (93 pages). It is like a summary, and its appendixes are very useful.
@@ -41,6 +43,10 @@ Take a look to [Neoverse N1 Cache section](./arm-neoverse-n1.md).
 ### Bandwidth
 
 Take a look to [Neoverse N1 Bandwidth section](./arm-neoverse-n1.md).
+
+More about BUS_ACCESS. The current version of the Arm® Architecture Reference Manual implements additional fields in the Performance Monitors Machine Identification Register, PMMIR_EL1, that were not defined when the Neoverse V1 was developed. Those fields could be useful for understanding memory system related events, so they are defined here:
+- PMMIR_EL1.BUS_SLOTS: 2
+- PMMIR_EL1.BUS_WIDTH: 256
 
 ### Power Control
 

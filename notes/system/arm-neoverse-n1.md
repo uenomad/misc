@@ -17,13 +17,15 @@ The table of events doesn't show any signs of SVE. It just says ASE_SPEC (Advanc
 | Name      | Event | Description                                                                                    |
 |-----------|-------|------------------------------------------------------------------------------------------------|
 | INST_SPEC | r1b   | Counts instructions that are Speculatively executed (not necessarily retired or execueted).    |
-| DP_SPEC   | r73   | Counts each integer data-processing operations.                                                |
+| DP_SPEC   | r73   | Counts each integer data-processing operations. Including miscellaneus instructions.           |
 | ASE_SPEC  | r74   | Counts each operation counted by INST_SPEC that is an Advanced SIMD data-processing operation. |
-| VFP_SPEC  | r75   | Counts operations speculatively executed, scalar floating-point. SIMD is not included.         |
+| VFP_SPEC  | r75   | Counts operations speculatively executed, scalar floating-point. Neon is not included.         |
 
 You can't calculate anything interesting, just a hint of non-SIMD floating point operations and ARM NEON utilization.
 
 ### Cache
+
+N1 manuals about the L3: `This event does not count on the Neoverse V1.`. But these events: LL_CACHE_RD and LL_CACHE_MISS_RD does it in some conditions. These events will be explored later. 
 
 Note that AArch64 do not support cache MISS counters, but only REFILLs. A cache miss could lead to multiple cache line refills if the access is on a cache line boundary or multiple cache misses could be satisfied by a single REFILL.
 
@@ -49,15 +51,11 @@ The BUS_ACCESS event has multiple definitions:
 1) Counts memory transactions issued by the CPU to the external bus, including snoop requests and snoop responses.
 2) Counts for every beat of data transferred over the data channels between the core and the Snoop Control Unit (SCU).
 3) Counts any memory accesses issued by the load/store memory system (also referred to as the L2 system) from the CPU to the DSU. Since the DSU is always implemented with a the direct connect configuration, the transaction will go to the system interconnect (bus).
-4) Counts each Memory-read operation or Memory-write operation that accesses outside of the boundary of the PE (Processing Element) and its closely-coupled caches. Where this boundary lies with respect to any implemented caches is IMPLEMENTATION DEFINED. Where an implementation has multiple buses at this boundary, this event counts the sum of accesses across all buses. Bus transactions include refills of and write-backs from data, instruction, and unified caches. Whether bus transactions include operations that use the bus but do not explicitly transfer data is IMPLEMENTATION DEFINED. An Unattributable bus transaction occurs when a requestor outside the PE makes a request that results in a bus imgaccess, for example, a coherency request.
-
-![img.png](./img/arm-neoverse-n1-l2.png)
+4) Counts each Memory-read operation or Memory-write operation that accesses outside of the boundary of the PE (Processing Element) and its closely-coupled caches. Where this boundary lies with respect to any implemented caches is IMPLEMENTATION DEFINED. Where an implementation has multiple buses at this boundary, this event counts the sum of accesses across all buses. Bus transactions include refills of and write-backs from data, instruction, and unified caches. Whether bus transactions include operations that use the bus but do not explicitly transfer data is IMPLEMENTATION DEFINED. An Unattributable bus transaction occurs when a requestor outside the PE makes a request that results in a bus access, for example, a coherency request.
 
 A snooper is a coherency controller, monitors (or snoop) the bus transactions, and its goal is to maintain cache coherency in a distributed shared memory (DSM) systems. When specific data is shared by several caches and a processor modifies the value of the shared data, the change must be propagated to all the other caches which have a copy of the data. This change propagation prevents the system from violating cache coherency. The notification of data change can be done by bus snooping. All the snoopers monitor every transaction on a bus. There are two kinds of snooping protocols depending on the way to manage a local copy of a write operation: write-invalidate and write-update. More info on [wikipedia](https://en.wikipedia.org/wiki/Bus_snooping).
 
 Acording to ARM documentation, within the DSU (DynamIQ Shared Unit), are the L3 cache, the Snoop Control Unit (SCU), internal interfaces to the cores, and external interfaces to the SoC. It also seems to include peripherial port.
-
-The question rises, how much more will BUS_ACCESS count besides memory accesses and snooping?
 
 ![img.png](./img/arm-neoverse-v1-dsu.png)
 
@@ -81,6 +79,15 @@ CPU4                    6,416      r19
 CPU5                    6,838      r19
 ...
 ```
+
+But **Important!**, this is what a field in register `PMMIR_EL1` says about BUS_ACCESS:
+- Each transfer is up to this number of bytes. An access might be smaller than the bus width. When this field is nonzero, each access counted by BUS_ACCESS is at most BUS_WIDTH bytes. An implementation might treat a wide bus as multiple narrower buses, such that a wide access on the bus increments the BUS_ACCESS counter by more than one.<br>
+
+So, it count accesses, but is not possible to use it to count bandwidth.
+
+Maybe the L2 misses are the key of the bandwidth?
+
+![img.png](./img/arm-neoverse-n1-l2.png)
 
 ### Other resources
 
