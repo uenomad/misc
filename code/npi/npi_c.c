@@ -275,17 +275,15 @@ int npic_Ibsend(M3C void *buf, int count, MD dt, int dest, int tag, MPI_Comm com
 
 int npic_Init(int *argc, char ***argv)
 {
-    before_init();
+    npi_init();
     int res = PMPI_Init(argc, argv);
-    after_init();
     return res;
 }
 
 int npic_Init_thread(int *argc, char ***argv, int required, int *provided)
 {
-    before_init();
+    npi_init();
     int res = PMPI_Init_thread(argc, argv, required, provided);
-    after_init();
     return res;
 }
 
