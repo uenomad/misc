@@ -1,4 +1,5 @@
 #include "npi.h"
+#include "npi_c.h"
 
 int npic_Allgather(M3C void *sb, int sc, MD st, void *rb, int rc, MD rt, MPI_Comm comm)
 {
@@ -235,9 +236,8 @@ int npic_File_write_at_all(MF fh, MPI_Offset offset, M3C void *buf, int count, M
 
 int npic_Finalize(void)
 {
-    before_finalize();
+    npi_finalize();
     int res = PMPI_Finalize();
-    after_finalize();
     return res;
 }
 
