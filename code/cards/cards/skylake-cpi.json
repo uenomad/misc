@@ -1,0 +1,31 @@
+{
+    "architecture": {
+        "vendor":"intel",
+        "model":65,
+        "conditional": ">="
+    },
+    "toplogies": [
+        {
+            "index":1,
+            "select":"socket"
+        },
+        {
+            "index":2,
+            "select":"socket"
+        }
+    ],
+    "registers": [
+        {
+            "address":0,
+            "api":"msr",
+            "type":"init",
+            "bits":48,
+        },
+        {
+            "address":0,
+            "api":"pci",
+            "type":"read",
+            "bits":64
+        }
+    ]
+}

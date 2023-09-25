@@ -2,6 +2,15 @@
 
 ELF is the standard Linux binary format. There are some types of ELFs:
 
+### Symbol versions
+
+
+https://stackoverflow.com/questions/41061220/where-do-object-file-version-references-come-from/41093059#41093059
+https://stackoverflow.com/questions/8657908/deploying-yesod-to-heroku-cant-build-statically/8658468#8658468
+
+```
+```
+
 ### File types
 
 | Name      | Description                                                                        |

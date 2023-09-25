@@ -1,5 +1,5 @@
-#ifndef MISC_NQJ_H
-#define MISC_NQJ_H
+#ifndef MISC_NPI_H
+#define MISC_NPI_H
 
 #include <mpi.h>
 
@@ -157,8 +157,8 @@ typedef enum {
     Not_implemented
 } mpi_call_e;
 
-void nqj_enter(mpi_call_e call, p2i buf, p2i dest);
+void npi_enter(mpi_call_e call, p2i buf, p2i dest);
 
-void nqj_leave(mpi_call_e call);
+void npi_leave(mpi_call_e call);
 
-#endif //MISC_NQJ_H
+#endif //MISC_NPI_H

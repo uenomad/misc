@@ -35,6 +35,5 @@ struct sysinfo {
 
 ### Resources
 
-- Power and Performance Software Analysis and Optimization
-  (Jim Kukunas).
+- Power and Performance Software Analysis and Optimization (Jim Kukunas).
 - [Google Benchmark](https://github.com/google/benchmark/tree/v1.1.0/src).

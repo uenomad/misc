@@ -4,6 +4,8 @@ Perf is a profiler tool for Linux 2.6+ based systems that abstracts away CPU har
 
 ### System call
 
+The system call is [perf_event_open](https://man7.org/linux/man-pages/man2/perf_event_open.2.html).
+
 An event group is only scheduled to be collected when all members are available to be measured. Thus, all events that will be calculated or compared together should be members of the same group, ensuring that each event metric is computed based on similar code execution.
 
 The way perf_events emulates 64-bit counter is limited to expressing sampling periods using the number of bits in the actual hardware counters. If this is smaller than 64, the kernel silently truncates the period in this case. Therefore, it is best if the period is always smaller than 2^31 if running on 32-bit systems.
@@ -32,7 +34,17 @@ Requires that the kernel’s NMI watchdog and kernel pointer hiding functionalit
 
 The kernel pointer hiding functionality controls how the kernel prints addresses, both in logs and system files. With this feature enabled, unless the user has the necessary privileges, all kernel pointer addresses are printed as NULL. This is designed to improve security by hiding the exact location of some of the kernel’s data structures. At the same time, this makes it difficult to correlate the collected instruction pointers to kernel functions. This feature can be disabled either by setting the  kernel.kptr_restrict sysctl property to zero, or by writing a zero character to the file /proc/sys/kernel/kptr_restrict.
 
-Additionally, the visibility of the data collection can be controlled with the  /proc/sys/kernel/perf_event_paranoid file. If this file does not exist, either the kernel was compiled without support for performance events or procfs isn’t mounted. If the file does exist, it contains a string of an integer. This integer specifies the access  restrictions enforced by the kernel for measurements. 
+Additionally, the visibility of the data collection can be controlled with the  /proc/sys/kernel/perf_event_paranoid file. If this file does not exist, either the kernel was compiled without support for performance events or procfs isn’t mounted. If the file does exist, it contains a string of an integer. This integer specifies the access restrictions enforced by the kernel for measurements. 
+
+`sudo sh -c 'echo -1 > /proc/sys/kernel/perf_event_paranoid'`
+
+### Perf open before fork()
+
+When fork is done, the child process inherits the open file descriptors. But, the monitoring process to monitor is still the parent, even if you set 0 to perf_event_open PID, it seems that internally the own pid was set. If inherit bit is set during perf_event_open then both parent and child monitor both processes counters. The only way to monitor the performance of the self process is to call `perf_event_open` after fork or re-open perf in the child process.
+
+### Perf open before pthread_create()
+
+When creating an additional thread the behaviour of perf is the same as when doing it before `fork()`.
 
 ### Tool
 

@@ -15,6 +15,8 @@
   - Volume 3D: Covers SGX and all the appendices.
 - Volume 4: Describes the model-specific registers (MSRs). **[Important]**
 
+* Since 2022, Permormance Monitoring Events are not included in "All Vols" PDF.
+
 ### Other manuals
 
 - Architecture Instruction Set Extensions Programming Reference: CPUID and features for future Intel CPUs.
