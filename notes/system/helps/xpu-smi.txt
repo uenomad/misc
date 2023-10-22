@@ -1,0 +1,143 @@
+>>> xpu-smi --version
+CLI:
+    Version: 1.2.16.20230815
+    Build ID: 72f7d345
+
+Service:
+    Version: 1.2.16.20230815
+    Build ID: 72f7d345
+    Level Zero Version: 1.11.0
+
+>>> xpu-smi --help
+Intel XPU System Management Interface -- v1.2
+Intel XPU System Management Interface provides the Intel datacenter GPU model. It can also be used to update the firmware.
+Intel XPU System Management Interface is based on Intel oneAPI Level Zero. Before using Intel XPU System Management Interface, the GPU driver and Intel oneAPI Level Zero should be installed rightly.
+
+Supported devcies:
+ - Intel Data Center GPU
+
+Usage: xpu-smi [Options]
+  xpu-smi -v
+  xpu-smi -h
+  xpu-smi discovery
+
+Options:
+  -h,--help                   Print this help message and exit
+  -v,--version                Display version information and exit.
+
+Subcommands:
+  discovery                   Discover the GPU devices installed on this machine and provide the device info.
+  topology                    Get the system topology.
+  diag                        Run some test suites to diagnose GPU.
+  health                      Get the GPU device component health status.
+  updatefw                    Update GPU firmware
+  config                      Get and change the GPU settings.
+  ps                          List status of processes.
+  vgpu                        Create and remove virtual GPUs in SRIOV configuration.
+  stats                       List the GPU statistics.
+  dump                        Dump device statistics data.
+  log                         Collect GPU debug logs.
+
+>>> xpu-smi stats -d 0
+    +-----------------------------+--------------------------------------------------------------------+
+    | Device ID                   | 0                                                                  |
+    +-----------------------------+--------------------------------------------------------------------+
+    | GPU Utilization (%)         | Tile 0: ; Tile 1:                                                  |
+    | EU Array Active (%)         | Tile 0: ; Tile 1:                                                  |
+    | EU Array Stall (%)          | Tile 0: ; Tile 1:                                                  |
+    | EU Array Idle (%)           | Tile 0: ; Tile 1:                                                  |
+    |                             |                                                                    |
+    | Compute Engine Util (%)     |                                                                    |
+    | Render Engine Util (%)      |                                                                    |
+    | Media Engine Util (%)       | Tile 0: ; Tile 1:                                                  |
+    | Decoder Engine Util (%)     |                                                                    |
+    | Encoder Engine Util (%)     |                                                                    |
+    | Copy Engine Util (%)        |                                                                    |
+    | Media EM Engine Util (%)    |                                                                    |
+    | 3D Engine Util (%)          |                                                                    |
+    +-----------------------------+--------------------------------------------------------------------+
+    | Reset                       | Tile 0: ; Tile 1:                                                  |
+    | Programming Errors          | Tile 0: ; Tile 1:                                                  |
+    | Driver Errors               | Tile 0: ; Tile 1:                                                  |
+    | Cache Errors Correctable    | Tile 0: ; Tile 1:                                                  |
+    | Cache Errors Uncorrectable  | Tile 0: ; Tile 1:                                                  |
+    | Mem Errors Correctable      | Tile 0: ; Tile 1:                                                  |
+    | Mem Errors Uncorrectable    | Tile 0: ; Tile 1:                                                  |
+    +-----------------------------+--------------------------------------------------------------------+
+    | GPU Power (W)               | Tile 0: 6; Tile 1: 3                                               |
+    | GPU Frequency (MHz)         | Tile 0: 0; Tile 1: 0                                               |
+    | GPU Core Temperature (C)    | Tile 0: ; Tile 1:                                                  |
+    | GPU Memory Temperature (C)  | Tile 0: ; Tile 1:                                                  |
+    | GPU Memory Read (kB/s)      | Tile 0: ; Tile 1:                                                  |
+    | GPU Memory Write (kB/s)     | Tile 0: ; Tile 1:                                                  |
+    | GPU Memory Bandwidth (%)    | Tile 0: ; Tile 1:                                                  |
+    | GPU Memory Used (MiB)       | Tile 0: 44; Tile 1: 44                                             |
+    | GPU Memory Util (%)         | Tile 0: 0; Tile 1: 0                                               |
+    | Xe Link Throughput (kB/s)   | 1/0 -> 0/1: 0.0                                                    |
+    |                             | 0/1 -> 1/0: 0.0                                                    |
+    |                             | 3/1 -> 0/1: 0.0                                                    |
+    |                             | 0/1 -> 3/1: 0.0                                                    |
+    |                             | 1/1 -> 0/0: 0.0                                                    |
+    |                             | 0/0 -> 1/1: 0.0                                                    |
+    |                             | 2/0 -> 0/0: 0.0                                                    |
+    |                             | 0/0 -> 2/0: 0.0                                                    |
+    |                             | 2/1 -> 0/1: 0.0                                                    |
+    |                             | 0/1 -> 2/1: 0.0                                                    |
+    |                             | 3/0 -> 0/0: 0.0                                                    |
+    |                             | 0/0 -> 3/0: 0.0                                                    |
+    +-----------------------------+--------------------------------------------------------------------+
+
+>>> xpu-smi dump
+    Dump device statistics data.
+
+    Usage: xpu-smi dump [Options]
+      xpu-smi dump -d [deviceIds] -t [deviceTileIds] -m [metricsIds] -i [timeInterval] -n [dumpTimes]
+      xpu-smi dump -d [pciBdfAddress] -t [deviceTileIds] -m [metricsIds] -i [timeInterval] -n [dumpTimes]
+
+    Options:
+      -h,--help                   Print this help message and exit
+      -j,--json                   Print result in JSON format
+
+      -d,--device                 The device IDs or PCI BDF addresses to query. The value of "-1" means all devices.
+      -t,--tile                   The device tile IDs to query. If the device has only one tile, this parameter should not be specified.
+      -m,--metrics                Metrics type to collect raw data, options. Separated by the comma.
+                                  0. GPU Utilization (%), GPU active time of the elapsed time, per tile
+                                  1. GPU Power (W), per tile
+                                  2. GPU Frequency (MHz), per tile
+                                  3. GPU Core Temperature (Celsius Degree), per tile
+                                  4. GPU Memory Temperature (Celsius Degree), per tile
+                                  5. GPU Memory Utilization (%), per tile
+                                  6. GPU Memory Read (kB/s), per tile
+                                  7. GPU Memory Write (kB/s), per tile
+                                  8. GPU Energy Consumed (J), per tile
+                                  9. GPU EU Array Active (%), the normalized sum of all cycles on all EUs that were spent actively executing instructions. Per tile.
+                                  10. GPU EU Array Stall (%), the normalized sum of all cycles on all EUs during which the EUs were stalled. Per tile.
+                                      At least one thread is loaded, but the EU is stalled. Per tile.
+                                  11. GPU EU Array Idle (%), the normalized sum of all cycles on all cores when no threads were scheduled on a core. Per tile.
+                                  12. Reset Counter, per tile.
+                                  13. Programming Errors, per tile.
+                                  14. Driver Errors, per tile.
+                                  15. Cache Errors Correctable, per tile.
+                                  16. Cache Errors Uncorrectable, per tile.
+                                  17. GPU Memory Bandwidth Utilization (%)
+                                  18. GPU Memory Used (MiB)
+                                  19. PCIe Read (kB/s), per GPU
+                                  20. PCIe Write (kB/s), per GPU
+                                  21. Xe Link Throughput (kB/s), a list of tile-to-tile Xe Link throughput.
+                                  22. Compute engine utilizations (%), per tile.
+                                  23. Render engine utilizations (%), per tile.
+                                  24. Media decoder engine utilizations (%), per tile.
+                                  25. Media encoder engine utilizations (%), per tile.
+                                  26. Copy engine utilizations (%), per tile.
+                                  27. Media enhancement engine utilizations (%), per tile.
+                                  28. 3D engine utilizations (%), per tile.
+                                  29. GPU Memory Errors Correctable, per tile. Other non-compute correctable errors are also included.
+                                  30. GPU Memory Errors Uncorrectable, per tile. Other non-compute uncorrectable errors are also included.
+                                  31. Compute engine group utilization (%), per tile.
+                                  32. Render engine group utilization (%), per tile.
+                                  33. Media engine group utilization (%), per tile.
+                                  34. Copy engine group utilization (%), per tile.
+                                  35. Throttle reason, per tile.
+
+      -i                          The interval (in seconds) to dump the device statistics to screen. Default value: 1 second.
+      -n                          Number of the device statistics dump to screen. The dump will never be ended if this parameter is not specified.

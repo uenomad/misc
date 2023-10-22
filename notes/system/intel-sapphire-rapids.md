@@ -49,9 +49,11 @@ U_MSR_PMON_FIXED_CTL (0x2FDE)
 
 ### Reading cache
 
-Inherited from Skylake. But it does not include L2_TRANS.L2_WB to count data that leaves the L2 level. This concrete event has to be replaced by the sum of:
+Inherited from Skylake. But it does [not include L2_TRANS.L2_WB to count data that leaves the L2 level](https://github.com/RRZE-HPC/likwid/wiki/L2-L3-MEM-traffic-on-Intel-Skylake-SP-CascadeLake-SP). This concrete event has to be replaced by the sum of:
 
 | Event                   | Ev,Umask | Description                                                                                                                                                                         |
 |-------------------------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| L2_LINES_OUT.NON_SILENT | f2,01    | Count lines evicted from L2 due cache fills. Evicted lines are delivered to the L3, which may or may not cache them, according to system load and priorities.                       |
-| L2_LINES_OUT.SILENT     | f2,02    | Counts the number of lines that are silently dropped by L2 cache when triggered by an L2 cache fill. These lines are typically in Shared or Exclusive state. A non-threaded event.  |
+| L2_LINES_OUT.NON_SILENT | 26,01    | Count lines evicted from L2 due cache fills. Evicted lines are delivered to the L3, which may or may not cache them, according to system load and priorities.                       |
+| L2_LINES_OUT.SILENT     | 26,02    | Counts the number of lines that are silently dropped by L2 cache when triggered by an L2 cache fill. These lines are typically in Shared or Exclusive state. A non-threaded event.  |
+
+* [Intel Perfmon Events](https://perfmon-events.intel.com/spxeon.html).

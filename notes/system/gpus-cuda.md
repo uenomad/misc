@@ -43,7 +43,7 @@ The best we can do to understand is to write a table comparison:
 | Thread Block Cluster        | ?      | -     | New concept.                                                                                                                                   |
 
 Taken from the [H100 GPU Architecture White Paper](https://resources.nvidia.com/en-us-tensor-core/gtc22-whitepaper-hopper)
-![img.png](img.png)
+![img.png](./img/nvidia-h100.png)
 
 
 | Nvidia | Architecture | Year | CC per SM |

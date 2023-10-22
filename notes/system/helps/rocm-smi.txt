@@ -1,0 +1,146 @@
+>>> rocm-smi --version #its a summary not a real command
+AMD ROCm System Management Interface | ROCM-SMI version: 1.4.1 | Kernel version: 5.13.20.22.10
+
+GPU[0]		: VBIOS version: 113-D1631700-107
+GPU[1]		: VBIOS version: 113-D1631700-107
+
+Driver version: 5.13.20.22.10
+
+>>> rocm-smi --help
+    usage: rocm-smi [-h] [-d DEVICE [DEVICE ...]] [--alldevices] [--showhw] [-a] [-i] [-v] [-e [EVENT [EVENT ...]]]
+                    [--showdriverversion] [--showfwinfo [BLOCK [BLOCK ...]]] [--showmclkrange] [--showmemvendor]
+                    [--showsclkrange] [--showproductname] [--showserial] [--showuniqueid] [--showvoltagerange] [--showbus]
+                    [--showpagesinfo] [--showpendingpages] [--showretiredpages] [--showunreservablepages] [-f] [-P] [-t]
+                    [-u] [--showmemuse] [--showvoltage] [-b] [-c] [-g] [-l] [-M] [-m] [-o] [-p] [-S] [-s]
+                    [--showmeminfo TYPE [TYPE ...]] [--showpids] [--showpidgpus [SHOWPIDGPUS [SHOWPIDGPUS ...]]]
+                    [--showreplaycount] [--showrasinfo [SHOWRASINFO [SHOWRASINFO ...]]] [--showvc] [--showxgmierr]
+                    [--showtopo] [--showtopoaccess] [--showtopoweight] [--showtopohops] [--showtopotype] [--showtoponuma]
+                    [--showenergycounter] [--shownodesbw] [-r] [--resetfans] [--resetprofile] [--resetpoweroverdrive]
+                    [--resetxgmierr] [--resetperfdeterminism] [--setclock TYPE LEVEL] [--setsclk LEVEL [LEVEL ...]]
+                    [--setmclk LEVEL [LEVEL ...]] [--setpcie LEVEL [LEVEL ...]] [--setslevel SCLKLEVEL SCLK SVOLT]
+                    [--setmlevel MCLKLEVEL MCLK MVOLT] [--setvc POINT SCLK SVOLT] [--setsrange SCLKMIN SCLKMAX]
+                    [--setmrange MCLKMIN MCLKMAX] [--setfan LEVEL] [--setperflevel LEVEL] [--setoverdrive %]
+                    [--setmemoverdrive %] [--setpoweroverdrive WATTS] [--setprofile SETPROFILE] [--setperfdeterminism SCLK]
+                    [--rasenable BLOCK ERRTYPE] [--rasdisable BLOCK ERRTYPE] [--rasinject BLOCK] [--gpureset]
+                    [--load FILE | --save FILE] [--autorespond RESPONSE] [--loglevel LEVEL] [--json] [--csv]
+
+    AMD ROCm System Management Interface | ROCM-SMI version: 1.4.1 | Kernel version: 5.13.20.22.10
+
+    optional arguments:
+      -h, --help                                                show this help message and exit
+      --gpureset                                                Reset specified GPU (One GPU must be specified)
+      --load FILE                                               Load Clock, Fan, Performance and Profile settings from FILE
+      --save FILE                                               Save Clock, Fan, Performance and Profile settings to FILE
+
+      -d DEVICE [DEVICE ...], --device DEVICE [DEVICE ...]      Execute command on specified device
+
+    Display Options:
+      --alldevices
+      --showhw                                                  Show Hardware details
+      -a, --showallinfo                                         Show Temperature, Fan and Clock values
+
+    Topology:
+      -i, --showid                                              Show GPU ID
+      -v, --showvbios                                           Show VBIOS version
+      -e [EVENT [EVENT ...]], --showevents [EVENT [EVENT ...]]  Show event list
+      --showdriverversion                                       Show kernel driver version
+      --showfwinfo [BLOCK [BLOCK ...]]                          Show FW information
+      --showmclkrange                                           Show mclk range
+      --showmemvendor                                           Show GPU memory vendor
+      --showsclkrange                                           Show sclk range
+      --showproductname                                         Show SKU/Vendor name
+      --showserial                                              Show GPU's Serial Number
+      --showuniqueid                                            Show GPU's Unique ID
+      --showvoltagerange                                        Show voltage range
+      --showbus                                                 Show PCI bus number
+
+    Pages information:
+      --showpagesinfo                                           Show retired, pending and unreservable pages
+      --showpendingpages                                        Show pending retired pages
+      --showretiredpages                                        Show retired pages
+      --showunreservablepages                                   Show unreservable pages
+
+    Hardware-related information:
+      -f, --showfan                                             Show current fan speed
+      -P, --showpower                                           Show current Average Graphics Package Power Consumption
+      -t, --showtemp                                            Show current temperature
+      -u, --showuse                                             Show current GPU use
+      --showmemuse                                              Show current GPU memory used
+      --showvoltage                                             Show current GPU voltage
+
+    Software-related/controlled information:
+      -b, --showbw                                              Show estimated PCIe use
+      -c, --showclocks                                          Show current clock frequencies
+      -g, --showgpuclocks                                       Show current GPU clock frequencies
+      -l, --showprofile                                         Show Compute Profile attributes
+      -M, --showmaxpower                                        Show maximum graphics package power this GPU will consume
+      -m, --showmemoverdrive                                    Show current GPU Memory Clock OverDrive level
+      -o, --showoverdrive                                       Show current GPU Clock OverDrive level
+      -p, --showperflevel                                       Show current DPM Performance Level
+      -S, --showclkvolt                                         Show supported GPU and Memory Clocks and Voltages
+      -s, --showclkfrq                                          Show supported GPU and Memory Clock
+      --showmeminfo TYPE [TYPE ...]                             Show Memory usage information for given block(s) TYPE
+      --showpids                                                Show current running KFD PIDs
+      --showpidgpus [SHOWPIDGPUS [SHOWPIDGPUS ...]]             Show GPUs used by specified KFD PIDs (all if no arg given)
+      --showreplaycount                                         Show PCIe Replay Count
+      --showrasinfo [SHOWRASINFO [SHOWRASINFO ...]]             Show RAS enablement information and error counts for the
+                                                                specified block(s) (all if no arg given)
+      --showvc                                                  Show voltage curve
+      --showxgmierr                                             Show XGMI error information since last read
+      --showtopo                                                Show hardware topology information
+      --showtopoaccess                                          Shows the link accessibility between GPUs
+      --showtopoweight                                          Shows the relative weight between GPUs
+      --showtopohops                                            Shows the number of hops between GPUs
+      --showtopotype                                            Shows the link type between GPUs
+      --showtoponuma                                            Shows the numa nodes
+      --showenergycounter                                       Energy accumulator that stores amount of energy consumed
+      --shownodesbw                                             Shows the numa nodes
+
+    Set options:
+      --resetperfdeterminism                                    Disable performance determinism
+      --setclock TYPE LEVEL                                     Set Clock Frequency Level(s) for specified clock (requires
+                                                                manual Perf level)
+      --setsclk LEVEL [LEVEL ...]                               Set GPU Clock Frequency Level(s) (requires manual Perf
+                                                                level)
+      --setmclk LEVEL [LEVEL ...]                               Set GPU Memory Clock Frequency Level(s) (requires manual
+                                                                Perf level)
+      --setpcie LEVEL [LEVEL ...]                               Set PCIE Clock Frequency Level(s) (requires manual Perf
+                                                                level)
+      --setslevel SCLKLEVEL SCLK SVOLT                          Change GPU Clock frequency (MHz) and Voltage (mV) for a
+                                                                specific Level
+      --setmlevel MCLKLEVEL MCLK MVOLT                          Change GPU Memory clock frequency (MHz) and Voltage for (mV)
+                                                                a specific Level
+      --setvc POINT SCLK SVOLT                                  Change SCLK Voltage Curve (MHz mV) for a specific point
+      --setsrange SCLKMIN SCLKMAX                               Set min and max SCLK speed
+      --setmrange MCLKMIN MCLKMAX                               Set min and max MCLK speed
+      --setfan LEVEL                                            Set GPU Fan Speed (Level or %)
+      --setperflevel LEVEL                                      Set Performance Level
+      --setoverdrive %                                          Set GPU OverDrive level (requires manual|high Perf level)
+      --setmemoverdrive %                                       Set GPU Memory Overclock OverDrive level (requires
+                                                                manual|high Perf level)
+      --setpoweroverdrive WATTS                                 Set the maximum GPU power using Power OverDrive in Watts
+      --setprofile SETPROFILE                                   Specify Power Profile level (#) or a quoted string of CUSTOM
+                                                                Profile attributes "# # # #..." (requires manual Perf level)
+      --setperfdeterminism SCLK                                 Set clock frequency limit to get minimal performance
+                                                                variation
+      --rasenable BLOCK ERRTYPE                                 Enable RAS for specified block and error type
+      --rasdisable BLOCK ERRTYPE                                Disable RAS for specified block and error type
+      --rasinject BLOCK                                         Inject RAS poison for specified block (ONLY WORKS ON
+                                                                UNSECURE BOARDS)
+
+    Reset options:
+      -r, --resetclocks                                         Reset clocks and OverDrive to default
+      --resetfans                                               Reset fans to automatic (driver) control
+      --resetprofile                                            Reset Power Profile back to default
+      --resetpoweroverdrive                                     Set the maximum GPU power back to the device deafult state
+      --resetxgmierr                                            Reset XGMI error count
+
+    Auto-response options:
+      --autorespond RESPONSE                                    Response to automatically provide for all prompts (NOT
+                                                                RECOMMENDED)
+
+    Output options:
+      --loglevel LEVEL                                          How much output will be printed for what program is doing,
+                                                                one of debug/info/warning/error/critical
+      --json                                                    Print output in JSON format
+      --csv                                                     Print output in CSV format
